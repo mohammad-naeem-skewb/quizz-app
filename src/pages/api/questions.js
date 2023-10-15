@@ -1,13 +1,4 @@
-import { useState } from "react";
-import QuizStart from "@/screens/QuizStart";
-import Question from "@/screens/Question";
-import Report from "../screens/Report";
-
-const Home = () => {
-  const [quizStart, setQuizStart] = useState(false);
-  const [score, setScore] = useState(0);
-  const [attempted, setAttemped] = useState(0);
-  const [progress, setProgress] = useState(0);
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 const questions = [
   {
@@ -57,38 +48,7 @@ const questions = [
   },
   // Add more questions as needed
 ];
-  // console.log("score: ", score);
 
-   const length = questions.length;
-
-  return (
-    <>
-      {!quizStart && (
-        <QuizStart quizStart={quizStart} setQuizStart={setQuizStart} />
-      )}
-      {quizStart && attempted !== length && (
-        <Question
-          questions={questions}
-          length={length}
-          setScore={setScore}
-          setAttemped={setAttemped}
-          attempted={attempted}
-          progress={progress}
-          setProgress={setProgress}
-        />
-      )}
-      {attempted === length && (
-        <Report
-          score={score}
-          length={length}
-          setQuizStart={setQuizStart}
-          setScore={setScore}
-          setAttemped={setAttemped}
-          setProgress={setProgress}
-        />
-      )}
-    </>
-  );
-};
-
-export default Home;
+export default function handler(req, res) {
+  res.status(200).json(questions);
+}
